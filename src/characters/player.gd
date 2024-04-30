@@ -89,3 +89,7 @@ func _slowmo(time_scale: float, duration: float) -> void:
 	Engine.time_scale = time_scale
 	await timer.timeout
 	Engine.time_scale = 1.0
+
+
+func pickup_coin(value: int) -> void:
+	GameManager.score += value
