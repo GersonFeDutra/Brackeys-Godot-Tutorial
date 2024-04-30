@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbwdfs3kiagsg"]
+[gd_scene load_steps=11 format=3 uid="uid://bbwdfs3kiagsg"]
 
 [ext_resource type="PackedScene" uid="uid://dtaocfp0aq5jd" path="res://src/character.tscn" id="1_1iwpk"]
 [ext_resource type="Texture2D" uid="uid://bkv4bdm21vbm" path="res://assets/sprites/slime_green.png" id="2_0cf06"]
 [ext_resource type="PackedScene" uid="uid://c2tsjgw3oyxlk" path="res://src/areas/hit.tscn" id="2_0vy8x"]
+[ext_resource type="Script" path="res://src/characters/enemy.gd" id="2_egh5h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2x1o"]
 atlas = ExtResource("2_0cf06")
@@ -46,6 +47,8 @@ size = Vector2(8, 11)
 [node name="Enemy" instance=ExtResource("1_1iwpk")]
 collision_layer = 0
 collision_mask = 1
+script = ExtResource("2_egh5h")
+speed = 8.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_v40rp")
@@ -57,3 +60,7 @@ frame_progress = 0.933045
 position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_4wn5p")
 debug_color = Color(0.955382, 3.27289e-06, 0.543505, 0.42)
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="3"]
+position = Vector2(0, -5)
+target_position = Vector2(13, 0)

@@ -1,26 +1,15 @@
-extends CharacterBody2D
+extends "res://src/character.gd"
 
 signal died
 
 @export var speed = 300.0
 @export var jump_velocity = -400.0
-@export var fall_limit = 400.0
 @onready var start_positon = self.global_position
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
-func _physics_process(delta: float) -> void:
-	_add_gravity(delta)
+func _character_physics_process(_delta: float) -> void:
 	_handle_jump()
 	_input_movement()
-	_handle_fall_limit()
-
-
-func _add_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y += gravity * delta
 
 
 func _handle_jump() -> void:
@@ -39,13 +28,10 @@ func _input_movement() -> void:
 	move_and_slide()
 
 
-func _handle_fall_limit() -> void:
-	if global_position.y > fall_limit:
-		die()
-
-
-func die() -> void:
+func _die() -> void:
 	# TODO -> Play animation
+	var hurt_area = $HurtArea
+	
 	global_position = start_positon
 	died.emit()
-	$HurtArea.health = $HurtArea.health_max
+	hurt_area.health = hurt_area.health_max

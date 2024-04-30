@@ -48,6 +48,8 @@ size = Vector2(8, 14)
 collision_layer = 0
 collision_mask = 1
 script = ExtResource("2_jlxcn")
+speed = 300.0
+jump_velocity = -400.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_ilfvc")
@@ -61,4 +63,4 @@ position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_1wwt1")
 debug_color = Color(0, 0.643365, 0.301354, 0.42)
 
-[connection signal="health_depleated" from="HurtArea" to="." method="die"]
+[connection signal="health_depleated" from="HurtArea" to="." method="_die"]

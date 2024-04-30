@@ -15,6 +15,14 @@ run/main_scene="res://src/game.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
+[file_customization]
+
+folder_colors={
+"res://src/areas/": "blue",
+"res://src/autoload/": "gray",
+"res://src/characters/": "orange"
+}
+
 [input]
 
 jump={
