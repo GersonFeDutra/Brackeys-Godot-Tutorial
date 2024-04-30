@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5r574ljq6x7i"]
+
+[sub_resource type="Animation" id="Animation_a7lkx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_06v8s"]
+resource_name = "loop"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vqpw1"]
+_data = {
+"RESET": SubResource("Animation_a7lkx"),
+"loop": SubResource("Animation_06v8s")
+}
+
+[node name="PathFollowLoop" type="PathFollow2D"]
+position = Vector2(336, 9)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vqpw1")
+}
+autoplay = "loop"
+
+[node name="_Timer_59441" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
