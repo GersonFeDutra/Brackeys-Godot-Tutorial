@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal died
+
 @export var speed = 300.0
 @export var jump_velocity = -400.0
 @export var fall_limit = 400.0
@@ -20,9 +22,11 @@ func _add_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
+
 func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
+
 
 func _input_movement() -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -34,6 +38,14 @@ func _input_movement() -> void:
 	
 	move_and_slide()
 
+
 func _handle_fall_limit() -> void:
 	if global_position.y > fall_limit:
-		global_position = start_positon
+		die()
+
+
+func die() -> void:
+	# TODO -> Play animation
+	global_position = start_positon
+	died.emit()
+	$HurtArea.health = $HurtArea.health_max

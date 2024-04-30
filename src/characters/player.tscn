@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://c58xjx457uvo8"]
+
+[ext_resource type="PackedScene" uid="uid://dtaocfp0aq5jd" path="res://src/character.tscn" id="1_fjlwr"]
+[ext_resource type="Script" path="res://src/characters/player.gd" id="2_jlxcn"]
+[ext_resource type="Texture2D" uid="uid://vojvwk5r72i3" path="res://assets/sprites/knight.png" id="3_otami"]
+[ext_resource type="PackedScene" uid="uid://baqh16bx110j1" path="res://src/areas/hurt.tscn" id="4_7a8pb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prvpm"]
+atlas = ExtResource("3_otami")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykj71"]
+atlas = ExtResource("3_otami")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bijgr"]
+atlas = ExtResource("3_otami")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uar7"]
+atlas = ExtResource("3_otami")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilfvc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prvpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykj71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bijgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uar7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wwt1"]
+size = Vector2(8, 14)
+
+[node name="Player" instance=ExtResource("1_fjlwr")]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("2_jlxcn")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_ilfvc")
+frame_progress = 0.613929
+
+[node name="HurtArea" parent="." index="2" instance=ExtResource("4_7a8pb")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea" index="0"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_1wwt1")
+debug_color = Color(0, 0.643365, 0.301354, 0.42)
+
+[connection signal="health_depleated" from="HurtArea" to="." method="die"]
