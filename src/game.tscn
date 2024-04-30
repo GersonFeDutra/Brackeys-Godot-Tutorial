@@ -417,6 +417,7 @@ point_count = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(16, 0)
 zoom = Vector2(4, 4)
 limit_left = 0
 limit_bottom = 96
@@ -484,6 +485,7 @@ position = Vector2(119, 0)
 speed = 4.0
 
 [node name="Player" parent="Characters" instance=ExtResource("5_ncju0")]
+position = Vector2(16, 0)
 collision_layer = 2
 speed = 155.0
 jump_velocity = -300.0
