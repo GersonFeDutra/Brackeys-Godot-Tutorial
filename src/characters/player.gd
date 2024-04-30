@@ -7,14 +7,24 @@ const DEATH_DELAY_DURATION: float = 1.5
 
 @export var speed = 300.0
 @export var jump_velocity = -400.0
+
 @onready var start_positon = self.global_position
+@onready var sprite = $AnimatedSprite2D
+
 var _input_movement_enabled: bool = true
 
 
 func _character_physics_process(_delta: float) -> void:
+	var is_moving := false
 	_handle_jump()
+	
 	if _input_movement_enabled:
-		_input_movement()
+		var direction: float = _input_x_axis()
+		_move_x_towards(direction)
+		_flip(direction)
+		is_moving = bool(direction)
+	
+	_animation_play(is_moving)
 	move_and_slide()
 
 
@@ -23,17 +33,35 @@ func _handle_jump() -> void:
 		velocity.y = jump_velocity
 
 
-func _input_movement() -> void:
-	var direction := Input.get_axis("move_left", "move_right")
-	
+func _input_x_axis() -> float:
+	return Input.get_axis("move_left", "move_right")
+
+
+func _move_x_towards(direction: float) -> void:
 	if direction:
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 
 
+func _flip(to_direction: float) -> void:
+	if to_direction > .0:
+		sprite.flip_h = false
+	elif to_direction < .0:
+		sprite.flip_h = true
+
+
+func _animation_play(is_moving: bool) -> void:
+	if is_on_floor():
+		if is_moving:
+			sprite.play("run")
+		else:
+			sprite.play("idle")
+	else:
+		sprite.play("jump")
+
+
 func _die() -> void:
-	# TODO -> Play animation
 	var hurt_area = $HurtArea
 	
 	_set_fall_through(true)
@@ -50,6 +78,7 @@ func _die() -> void:
 func _set_fall_through(enable: bool) -> void:
 	$CollisionShape2D.set_deferred("disabled", enable)
 	_input_movement_enabled = not enable
+
 
 func _knockback_apply(force: float) -> void:
 	velocity.x = sin(velocity.x * PI / 2.) * -force
