@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cchh2jxlgunso"]
+[gd_scene load_steps=21 format=3 uid="uid://cchh2jxlgunso"]
 
 [ext_resource type="Texture2D" uid="uid://kv36od8xpxqy" path="res://assets/sprites/world_tileset.png" id="3_tldks"]
 [ext_resource type="PackedScene" uid="uid://d3x52uyxrd08k" path="res://src/platform.tscn" id="4_tcopm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bu6yax6fh3w5" path="res://src/pickup.tscn" id="6_huhjb"]
 [ext_resource type="FontFile" uid="uid://bcwnmf50fdng8" path="res://assets/fonts/PixelOperator8.ttf" id="7_ync6y"]
 [ext_resource type="FontFile" uid="uid://c67if56vhw6yn" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="8_wf32p"]
+[ext_resource type="AudioStream" uid="uid://drsbirp2wqxbk" path="res://assets/music/time_for_adventure.mp3" id="9_d4g33"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mox8u"]
 normal = Vector2(1, 0)
@@ -611,5 +612,9 @@ text = "You scored"
 label_settings = SubResource("LabelSettings_151ev")
 horizontal_alignment = 1
 script = SubResource("GDScript_6g5w2")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_d4g33")
+autoplay = true
 
 [editable path="Platforms/MovingPlatform/Path2D/PathFollowLoop"]

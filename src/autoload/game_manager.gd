@@ -23,6 +23,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		save_game()
 
+
 func _save_file_exists() -> bool:
 	return FileAccess.file_exists(SAVE_FILE)
 
